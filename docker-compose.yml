@@ -1,0 +1,66 @@
+version: '3'
+
+services:
+  client:
+    build:
+      context: .
+      dockerfile: client.Dockerfile
+    ports:
+     - 8080:8080
+  database:
+    build:
+      context: .
+      dockerfile: database.Dockerfile
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_INITDB_DATABASE: tesis
+
+  fileserver:
+    build:
+      context: .
+      dockerfile: fileserver.Dockerfile
+    ports:
+      - 8001:8001
+    volumes:
+      - ./data:/go/src/fileserver/data
+    depends_on:
+      - database
+
+  render:
+    build:
+      context: .
+      dockerfile: render.Dockerfile
+    ports:
+      - 8082:9000
+      - 9001-9103:9001-9103
+    volumes:
+      - ./data:/data
+    networks:
+      static-network:
+        ipv4_address: 172.21.0.2
+    #runtime: nvidia
+    #environment:
+    #  - NVIDIA_VISIBLE_DEVICES=all
+    #command: nvidia-smi
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+      ME_CONFIG_MONGODB_ADMINPASSWORD: admin
+      ME_CONFIG_MONGODB_SERVER: database
+    labels:
+      - triton.cns.services=mongo-express
+    ports:
+      - 8081:8081
+    depends_on:
+      - database
+
+networks:
+  static-network:
+    ipam:
+      config:
+        - subnet: 172.21.0.0/24
+
