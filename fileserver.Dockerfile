@@ -9,7 +9,7 @@ RUN go get gopkg.in/mgo.v2
 
 WORKDIR /go/src/fileserver
 
-RUN git clone https://github.com/nicolasmaurotorres/thesis-server-files .
+RUN git clone http://mtorres:Pladema2018@git.pladema.net/tf-torres/server-web.git .
 
 RUN sed "s:localhost:database:" -i database.go
 

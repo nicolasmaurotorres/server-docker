@@ -1,7 +1,7 @@
 db.createCollection("users")
 // defaults users only for testing
 db.users.insert({"category":2,"email":"admin","password":"admin"})
-db.users.insert({"category":1,"email":"pladema","password":"pladema"})
-db.users.insert({"category":0,"email":"doctor","password":"doctor"})
-db.users.insert({"category":0,"email":"doctor1@doctor1.com","password":"doctor"})
-db.users.insert({"category":0,"email":"doctor2@doctor2.com","password":"doctor"})
+db.users.insert({"category":1,"email":"technician","password":"technician"})
+db.users.insert({"category":0,"email":"specialist","password":"specialist"})
+db.users.insert({"category":0,"email":"specialist1@specialist1.com","password":"specialist"})
+db.users.insert({"category":0,"email":"specialist2@specialist2.com","password":"specialist"})
