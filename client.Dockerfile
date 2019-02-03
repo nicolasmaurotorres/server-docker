@@ -8,15 +8,11 @@ RUN mkdir /usr/src/app
 
 RUN git clone http://mtorres:Pladema2018@git.pladema.net/tf-torres/cliente-web.git /usr/temp 
 
-RUN pwd
-
 RUN cat package.json >> /usr/src/app/package.json
 
 WORKDIR /usr/src/app
 
 RUN npm install
-
-RUN dir /usr/temp
 
 WORKDIR /usr/temp
 
