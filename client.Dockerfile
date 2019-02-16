@@ -2,24 +2,18 @@ FROM node
 
 RUN apt update && apt install -y git python
 
-WORKDIR /usr/temp
+WORKDIR /usr/app/client
 
-RUN mkdir /usr/src/app
-
-RUN git clone http://mtorres:Pladema2018@git.pladema.net/tf-torres/cliente-web.git /usr/temp 
-
-RUN cat package.json >> /usr/src/app/package.json
-
-WORKDIR /usr/src/app
+COPY cliente-web/package.json .
 
 RUN npm install
 
-WORKDIR /usr/temp
+COPY cliente-web .
 
-COPY [".","/usr/src/app"]
+RUN sed "s|--open --port=8000| --host 0.0.0.0|g" -i package.json
+
+RUN sed "s|sessionManagerURL : 'http://localhost:8080|sessionManagerURL : 'http://0.0.0.0:8082|g" -i /usr/app/client/src/js/config/renderConfig.js
 
 EXPOSE 8000
-
-RUN sed "s:--open --port=8000: --host 0.0.0.0:" -i package.json
 
 CMD ["npm", "run", "dev"]

@@ -7,6 +7,7 @@ services:
       dockerfile: client.Dockerfile
     ports:
      - 8080:8080
+
   database:
     build:
       context: .
@@ -23,7 +24,7 @@ services:
     ports:
       - 8001:8001
     volumes:
-      - ./data:/go/src/fileserver/data
+      - data:/opt/wslink-launcher/shared
     depends_on:
       - database
 
@@ -35,14 +36,10 @@ services:
       - 8082:9000
       - 9001-9103:9001-9103
     volumes:
-      - ./data:/data
+      - data:/opt/wslink-launcher/shared
     networks:
       static-network:
         ipv4_address: 172.21.0.2
-    #runtime: nvidia
-    #environment:
-    #  - NVIDIA_VISIBLE_DEVICES=all
-    #command: nvidia-smi
 
   mongo-express:
     image: mongo-express
@@ -64,3 +61,5 @@ networks:
       config:
         - subnet: 172.21.0.0/24
 
+volumes:
+  data:

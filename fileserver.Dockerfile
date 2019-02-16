@@ -9,11 +9,11 @@ RUN go get gopkg.in/mgo.v2
 
 WORKDIR /go/src/fileserver
 
-RUN git clone http://mtorres:Pladema2018@git.pladema.net/tf-torres/server-web.git .
+COPY server-web .
 
 RUN sed "s:localhost:database:" -i database.go
 
-RUN sed "s:/home/maro/Desktop/data/pvw/data:/go/src/fileserver/data:" -i database.go
+RUN sed "s|/home/maro/Desktop/data/pvw/data|/opt/wslink-launcher/shared|g" -i database.go
 
 RUN sed '/Dial/asession.DB("admin").Login("admin","admin")' -i database.go
 
