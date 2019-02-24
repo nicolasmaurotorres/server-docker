@@ -1,10 +1,9 @@
 {
-  "properties": {
-    "dataDir": "/opt/wslink-launcher",
-    "webapps_dir": "/opt/paraview/install/share/paraview-5.5/web",
-    "python_exec": "/opt/paraview/install/bin/pvpython"
-  },
+  
   "resources": [ {"port_range": [9001, 9103], "host": "172.21.0.2"} ],
+  "sessionData": {
+    "updir": "/opt/wslink-launcher"
+  },
   "configuration": {
     "log_dir": "/opt/wslink-launcher/log",
     "host": "0.0.0.0",
@@ -13,7 +12,7 @@
     "sessionURL": "ws://${host}:${port}/ws",
     "timeout": 25,
     "upload_dir": "/opt/wslink-launcher/upload",
-    "fields": ["file", "updir","host", "port","dataDir"],
+    "fields": ["file", "updir"],
     "proxy_file": "/opt/wslink-launcher/proxy-mapping.txt",
     "sanitize": {
       "version": {
@@ -28,19 +27,18 @@
       }
     }
   },
-  "sessionData": {
-    "updir": "/opt/wslink-launcher"
+  "properties": {
+    "webapps_dir": "/opt/paraview/install/share/paraview-5.5/web",
+    "python_exec": "/opt/paraview/install/bin/pvpython"
   },
   "apps": {
     "visualizer": {
       "cmd": [
         "${python_exec}",
-    "-dr",
         "${webapps_dir}/visualizer/server/pvw-visualizer.py",
         "--port", "${port}",
-        "--data", "/opt/wslink-launcher/shared",
+        "--data", "${dataDir}",
         "--authKey", "${secret}",
-  "-f",
         "--viewport-max-width", "1920",
         "--viewport-max-height", "1080",
         "--timeout", "30"

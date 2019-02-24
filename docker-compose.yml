@@ -33,6 +33,7 @@ services:
       context: .
       dockerfile: render.Dockerfile
     ports:
+      - 80:80 
       - 8082:9000
       - 9001-9103:9001-9103
     volumes:
