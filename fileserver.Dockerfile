@@ -11,11 +11,13 @@ WORKDIR /go/src/fileserver
 
 COPY server-web .
 
-RUN sed "s:localhost:database:" -i database.go
+# RUN sed "s:localhost:database:" -i database.go
 
-RUN sed "s|/home/maro/Desktop/data/pvw/data|/opt/wslink-launcher/shared|g" -i database.go
+# RUN sed "s|/home/maro/Desktop/data/pvw/data|/opt/wslink-launcher/shared|g" -i database.go
 
-RUN sed '/Dial/asession.DB("admin").Login("admin","admin")' -i database.go
+# RUN sed '/Dial/asession.DB("admin").Login("admin","admin")' -i database.go
+
+# RUN cat database.go
 
 RUN go install fileserver
 
