@@ -9,7 +9,7 @@ RUN go get gopkg.in/mgo.v2
 
 WORKDIR /go/src/fileserver
 
-COPY server-web .
+COPY server-files-auth .
 
 RUN go install fileserver
 
